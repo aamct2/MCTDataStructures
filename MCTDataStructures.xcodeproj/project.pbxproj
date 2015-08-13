@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BA425CD1B7D1C2100861E83 /* MCTQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */; };
+		4BA425CE1B7D1C2400861E83 /* MCTQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */; };
 		93C1FADD1B7CE71D00E73CB4 /* MCTDataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 93C1FADC1B7CE71D00E73CB4 /* MCTDataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		93C1FAE41B7CE71D00E73CB4 /* MCTDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C1FAD91B7CE71D00E73CB4 /* MCTDataStructures.framework */; };
-		93C1FAE91B7CE71D00E73CB4 /* MCTDataStructuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C1FAE81B7CE71D00E73CB4 /* MCTDataStructuresTests.swift */; };
 		93C1FAF41B7CE78A00E73CB4 /* MCTQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C1FAF31B7CE78A00E73CB4 /* MCTQueue.swift */; };
 		93C1FAF61B7CE7B000E73CB4 /* MCTStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C1FAF51B7CE7B000E73CB4 /* MCTStack.swift */; };
 		93C1FB061B7CE91D00E73CB4 /* MCTDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C1FAFC1B7CE91D00E73CB4 /* MCTDataStructures.framework */; };
 		93C1FB131B7CEB0500E73CB4 /* MCTDataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 93C1FADC1B7CE71D00E73CB4 /* MCTDataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		93C1FB141B7CEB0A00E73CB4 /* MCTQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C1FAF31B7CE78A00E73CB4 /* MCTQueue.swift */; };
 		93C1FB151B7CEB0E00E73CB4 /* MCTStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C1FAF51B7CE7B000E73CB4 /* MCTStack.swift */; };
-		93C1FB161B7CEB1200E73CB4 /* MCTDataStructuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C1FAE81B7CE71D00E73CB4 /* MCTDataStructuresTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,11 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCTQueue_Tests.swift; sourceTree = "<group>"; };
 		93C1FAD91B7CE71D00E73CB4 /* MCTDataStructures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MCTDataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93C1FADC1B7CE71D00E73CB4 /* MCTDataStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCTDataStructures.h; sourceTree = "<group>"; };
 		93C1FADE1B7CE71D00E73CB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93C1FAE31B7CE71D00E73CB4 /* MCTDataStructuresTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MCTDataStructuresTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93C1FAE81B7CE71D00E73CB4 /* MCTDataStructuresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCTDataStructuresTests.swift; sourceTree = "<group>"; };
 		93C1FAEA1B7CE71D00E73CB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93C1FAF31B7CE78A00E73CB4 /* MCTQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCTQueue.swift; sourceTree = "<group>"; };
 		93C1FAF51B7CE7B000E73CB4 /* MCTStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCTStack.swift; sourceTree = "<group>"; };
@@ -117,8 +117,8 @@
 		93C1FAE71B7CE71D00E73CB4 /* MCTDataStructuresTests */ = {
 			isa = PBXGroup;
 			children = (
-				93C1FAE81B7CE71D00E73CB4 /* MCTDataStructuresTests.swift */,
 				93C1FAEA1B7CE71D00E73CB4 /* Info.plist */,
+				4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */,
 			);
 			path = MCTDataStructuresTests;
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93C1FAE91B7CE71D00E73CB4 /* MCTDataStructuresTests.swift in Sources */,
+				4BA425CD1B7D1C2100861E83 /* MCTQueue_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93C1FB161B7CEB1200E73CB4 /* MCTDataStructuresTests.swift in Sources */,
+				4BA425CE1B7D1C2400861E83 /* MCTQueue_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +580,7 @@
 				93C1FAEF1B7CE71D00E73CB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93C1FAF01B7CE71D00E73CB4 /* Build configuration list for PBXNativeTarget "MCTDataStructuresTests iOS" */ = {
 			isa = XCConfigurationList;
@@ -588,6 +589,7 @@
 				93C1FAF21B7CE71D00E73CB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93C1FB0D1B7CE91D00E73CB4 /* Build configuration list for PBXNativeTarget "MCTDataStructures OSX" */ = {
 			isa = XCConfigurationList;
@@ -596,6 +598,7 @@
 				93C1FB0F1B7CE91D00E73CB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93C1FB101B7CE91D00E73CB4 /* Build configuration list for PBXNativeTarget "MCTDataStructuresTests OSX" */ = {
 			isa = XCConfigurationList;
@@ -604,6 +607,7 @@
 				93C1FB121B7CE91D00E73CB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
