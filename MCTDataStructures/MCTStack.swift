@@ -169,7 +169,7 @@ Returns result of equivalent operation !(lhs == rhs).
 - parameter lhs: The left-hand stack.
 - parameter rhs: The right-hand stack.
 
-:returns: Returns result of equivalent operation !(lhs == rhs).
+- returns: Returns result of equivalent operation !(lhs == rhs).
 */
 public func !=<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
     return !(lhs == rhs)
