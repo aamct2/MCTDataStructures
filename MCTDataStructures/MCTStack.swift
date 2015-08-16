@@ -25,20 +25,64 @@
 
 import Foundation
 
-public class MCTStack<T : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+/// Generic implementation of a Last In First Out (LIFO) stack collection.
+public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
     
-    private var items = [T]()
+    // MARK: - Properties
     
-    public init() {}
+    /// Underlying container (array) representation of stack.
+    private var items = [Element]()
     
+    /// The number of elements in the stack.
     public var size: Int {
         return items.count
     }
     
-    public var isEmpty: Bool {
+    /// Test whether the stack is empty.
+    public var empty: Bool {
         return items.isEmpty
     }
     
+    // MARK: - C++11 Functions
+    
+    /**
+    Remove the top element of the stack.
+    
+    - returns: The top element of the stack, if it exists.
+    */
+    public mutating func pop() -> Element? {
+        if empty { return nil }
+        
+        return items.removeLast()
+    }
+    
+    /**
+    Insert element on top of the stack.
+    
+    - parameter newObject: Element to push onto the stack.
+    */
+    public mutating func push(newObject: Element) {
+        items.append(newObject)
+    }
+    
+    /**
+    Access the top element of the stack without removing it.
+    
+    - returns: The top element of the stack, if it exists.
+    */
+    public func top() -> Element? {
+        if empty { return nil }
+        
+        return items[size - 1]
+    }
+    
+}
+
+
+// MARK: - Additional Convenience Functions
+
+public extension MCTStack {
+    /// A text representation of the stack.
     public var description : String {
         var result = ""
         for curObject in items {
@@ -48,50 +92,45 @@ public class MCTStack<T : CustomStringConvertible> : CustomStringConvertible, Se
         return result
     }
     
-    public func popObject() -> T? {
-        if isEmpty { return nil }
-        
-        return items.removeLast()
-    }
-    
-    public func pushObject(newObject: T) {
-        items.append(newObject)
-    }
-    
-    public func popAll() {
+    /**
+    Removes all elements from the stack.
+    */
+    public mutating func popAll() {
         items.removeAll()
     }
     
-    public func peek() -> T? {
-        if isEmpty { return nil }
+    /**
+    Returns a `MCTStack` containing the elements of `self` in reverse order.
+    
+    - returns: A `MCTStack` containing the elements of `self` in reverse order.
+    */
+    public func reverseStack() -> MCTStack<Element> {
+        var newStack = MCTStack<Element>()
         
-        return items[size - 1]
-    }
-    
-    public func reverseStack() {
-        items = items.reverse()
-    }
-    
-    public func stackAsArray() -> [T] {
-        return items
-    }
-    
-    public func generate() -> StackGenerator<T> {
-        return StackGenerator<T>(items: items[0 ..< items.count])
-    }
-    
-    public func copy() -> MCTStack<T> {
-        let newStack = MCTStack<T>()
-        
-        newStack.items = self.items
+        newStack.items = items.reverse()
         
         return newStack
     }
     
+    /**
+    Returns the stack as an array object.
+    
+    - returns: Array representation of the stack.
+    */
+    public func stackAsArray() -> [Element] {
+        return items
+    }
+    
+    public func generate() -> MCTStackGenerator<Element> {
+        return MCTStackGenerator<Element>(items: items[0 ..< items.count])
+    }
 }
 
-public struct StackGenerator<T> : GeneratorType {
-    public mutating func next() -> T? {
+
+// MARK: - Stack Generator Type
+
+public struct MCTStackGenerator<Element> : GeneratorType {
+    public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         
         let ret = items[0]
@@ -100,5 +139,96 @@ public struct StackGenerator<T> : GeneratorType {
         return ret
     }
     
-    var items: ArraySlice<T>
+    var items: ArraySlice<Element>
+}
+
+
+// MARK: - Relational Operators
+
+/**
+Returns true if these stacks contain the same elements.
+
+- parameter lhs: The left-hand stack.
+- parameter rhs: The right-hand stack.
+
+- returns: True if these stacks contain the same elements. Otherwise returns false.
+*/
+public func ==<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+    guard lhs.size == rhs.size else { return false }
+    
+    for index in 0 ..< lhs.size {
+        if lhs.items[index] != rhs.items[index] { return false }
+    }
+    
+    return true
+}
+
+/**
+Returns result of equivalent operation !(lhs == rhs).
+
+- parameter lhs: The left-hand stack.
+- parameter rhs: The right-hand stack.
+
+:returns: Returns result of equivalent operation !(lhs == rhs).
+*/
+public func !=<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+    return !(lhs == rhs)
+}
+
+/**
+Compares elements sequentially using operator< and stops at the first occurance where a<b or b<a.
+
+- parameter lhs: The left-hand stack.
+- parameter rhs: The right-hand stack.
+
+- returns: Returns true if the first element in which the stacks differ, the left hand element is less than the right hand element. Otherwise returns false.
+*/
+public func <<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+    for index in 0 ..< lhs.size {
+        if index >= rhs.size { return false }
+        
+        if lhs.items[index] < rhs.items[index] {
+            return true
+        } else if rhs.items[index] < lhs.items[index] {
+            return false
+        }
+    }
+    
+    return false
+}
+
+/**
+Returns result of equivalent operation rhs < lhs.
+
+- parameter lhs: The left-hand stack.
+- parameter rhs: The right-hand stack.
+
+- returns: Returns result of equivalent operation rhs < lhs.
+*/
+public func ><Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+    return rhs < lhs
+}
+
+/**
+Returns result of equivalent operation !(rhs < lhs).
+
+- parameter lhs: The left-hand stack.
+- parameter rhs: The right-hand stack.
+
+- returns: Returns result of equivalent operation !(rhs < lhs).
+*/
+public func <=<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+    return !(rhs < lhs)
+}
+
+/**
+Returns result of equivalent operation !(lhs < rhs).
+
+- parameter lhs: The left-hand stack.
+- parameter rhs: The right-hand stack.
+
+- returns: Returns result of equivalent operation !(lhs < rhs).
+*/
+public func >=<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+    return !(lhs < rhs)
 }
