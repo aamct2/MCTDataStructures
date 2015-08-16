@@ -130,4 +130,140 @@ class MCTStack_Tests: XCTestCase {
         XCTAssertEqual(result, 2)
     }
     
+    // MARK: - Logical Operators
+    
+    func testEquality() {
+        var secondStack = MCTStack<Int>()
+        secondStack.push(-1)
+        secondStack.push(3)
+        
+        XCTAssertTrue(testStack == secondStack)
+        
+        var thirdStack = MCTStack<Int>()
+        thirdStack.push(2)
+        thirdStack.push(3)
+        
+        XCTAssertFalse(testStack == thirdStack)
+        
+        var fourthStack = MCTStack<Int>()
+        fourthStack.push(-1)
+        
+        XCTAssertFalse(testStack == fourthStack)
+    }
+    
+    func testInequality() {
+        var secondStack = MCTStack<Int>()
+        secondStack.push(-1)
+        secondStack.push(3)
+        
+        XCTAssertFalse(testStack != secondStack)
+        
+        var thirdStack = MCTStack<Int>()
+        thirdStack.push(2)
+        thirdStack.push(3)
+        
+        XCTAssertTrue(testStack != thirdStack)
+        
+        var fourthStack = MCTStack<Int>()
+        fourthStack.push(-1)
+        
+        XCTAssertTrue(testStack != fourthStack)
+    }
+    
+    func testLessThan() {
+        var secondStack = MCTStack<Int>()
+        secondStack.push(-1)
+        secondStack.push(3)
+        
+        XCTAssertFalse(testStack < secondStack)
+        
+        var thirdStack = MCTStack<Int>()
+        thirdStack.push(2)
+        thirdStack.push(3)
+        
+        XCTAssertTrue(testStack < thirdStack)
+        
+        var fourthStack = MCTStack<Int>()
+        fourthStack.push(-2)
+        
+        XCTAssertFalse(testStack < fourthStack)
+        
+        var fifthStack = MCTStack<Int>()
+        fifthStack.push(-1)
+        
+        XCTAssertFalse(testStack < fifthStack)
+    }
+    
+    func testGreaterThan() {
+        var secondStack = MCTStack<Int>()
+        secondStack.push(-1)
+        secondStack.push(3)
+        
+        XCTAssertFalse(testStack > secondStack)
+        
+        var thirdStack = MCTStack<Int>()
+        thirdStack.push(2)
+        thirdStack.push(3)
+        
+        XCTAssertFalse(testStack > thirdStack)
+        
+        var fourthStack = MCTStack<Int>()
+        fourthStack.push(-2)
+        
+        XCTAssertTrue(testStack > fourthStack)
+        
+        var fifthStack = MCTStack<Int>()
+        fifthStack.push(-1)
+        
+        XCTAssertFalse(testStack > fifthStack)
+    }
+    
+    func testLessThanOrEqual() {
+        var secondStack = MCTStack<Int>()
+        secondStack.push(-1)
+        secondStack.push(3)
+        
+        XCTAssertTrue(testStack <= secondStack)
+        
+        var thirdStack = MCTStack<Int>()
+        thirdStack.push(2)
+        thirdStack.push(3)
+        
+        XCTAssertTrue(testStack <= thirdStack)
+        
+        var fourthStack = MCTStack<Int>()
+        fourthStack.push(-2)
+        
+        XCTAssertFalse(testStack <= fourthStack)
+        
+        var fifthStack = MCTStack<Int>()
+        fifthStack.push(-1)
+        
+        XCTAssertTrue(testStack <= fifthStack)
+    }
+    
+    func testGreaterThanOrEqual() {
+        var secondStack = MCTStack<Int>()
+        secondStack.push(-1)
+        secondStack.push(3)
+        
+        XCTAssertTrue(testStack >= secondStack)
+        
+        var thirdStack = MCTStack<Int>()
+        thirdStack.push(2)
+        thirdStack.push(3)
+        
+        XCTAssertFalse(testStack >= thirdStack)
+        
+        var fourthStack = MCTStack<Int>()
+        fourthStack.push(-2)
+        
+        XCTAssertTrue(testStack >= fourthStack)
+        
+        var fifthStack = MCTStack<Int>()
+        fifthStack.push(-1)
+        
+        XCTAssertTrue(testStack >= fifthStack)
+    }
+    
 }
