@@ -25,18 +25,76 @@
 
 import Foundation
 
-public class MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, SequenceType {
-    private var capacity = 10
+/// Generic implementation of a First In First Out (FIFO) queue collection.
+public struct MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+    
+    // MARK: - Properties
+    
+    /// Underlying container (array) representation of queue.
     private var items = [T]()
     
+    /// The number of elements in the queue.
     public var size: Int {
         return items.count
     }
     
-    public var isEmpty: Bool {
+    /// Test whether the queue is empty.
+    public var empty: Bool {
         return items.isEmpty
     }
     
+    
+    // MARK: - C++11 Functions
+    
+    /**
+    Remove the first element of the queue.
+    
+    - returns: The first element of the queue, if it exists.
+    */
+    public mutating func pop() -> T? {
+        if empty { return nil }
+        
+        return items.removeAtIndex(0)
+    }
+    
+    /**
+    Insert element at the end of the queue.
+    
+    - parameter newObject: Element to push onto the queue.
+    */
+    public mutating func push(newObject: T) {
+        items.append(newObject)
+    }
+    
+    /**
+    Access the next element of the queue without removing it.
+    
+    - returns: The next element of the queue, if it exists.
+    */
+    public func front() -> T? {
+        if empty { return nil }
+        
+        return items[0]
+    }
+    
+    /**
+    Access the last element of the queue without removing it.
+    
+    - returns: The last element of the queue, if it exists.
+    */
+    public func back() -> T? {
+        if empty { return nil }
+        
+        return items[size - 1]
+    }
+    
+}
+
+// MARK: - Additional Convenience Functions
+
+public extension MCTQueue {
+    
+    /// A text representation of the queue.
     public var description : String {
         var result = ""
         for curObject in items {
@@ -46,38 +104,18 @@ public class MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, Se
         return result
     }
     
-    public init(capacity newCapacity: Int) {
-        capacity = newCapacity
-    }
-    
-    public func popObject() -> T? {
-        if isEmpty { return nil }
-        
-        return items.removeAtIndex(0)
-    }
-    
-    public func pushObject(newObject: T) {
-        items.append(newObject)
-        
-        if size > capacity { popObject() }
-    }
-    
-    public func popAll() {
+    /**
+    Removes all elements from the queue.
+    */
+    public mutating func popAll() {
         items.removeAll()
     }
     
-    public func peek() -> T? {
-        if isEmpty { return nil }
-        
-        return items[0]
-    }
+    /**
+    Returns the queue as an array object.
     
-    public func bottomPeek() -> T? {
-        if isEmpty { return nil }
-        
-        return items[items.count - 1]
-    }
-    
+    - returns: Array representation of the queue.
+    */
     public func queueAsArray() -> [T] {
         return items
     }
@@ -86,15 +124,10 @@ public class MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, Se
         return QueueGenerator<T>(items: items[0 ..< items.count])
     }
     
-    public func copy() -> MCTQueue<T> {
-        let newQueue = MCTQueue<T>(capacity: self.capacity)
-        
-        newQueue.items = self.items
-        
-        return newQueue
-    }
-    
 }
+
+
+// MARK: - Queue Generator Type
 
 public struct QueueGenerator<T> : GeneratorType {
     public mutating func next() -> T? {
@@ -107,4 +140,95 @@ public struct QueueGenerator<T> : GeneratorType {
     }
     
     var items: ArraySlice<T>
+}
+
+
+// MARK: - Relational Operators
+
+/**
+Returns true if these queues contain the same elements.
+
+- parameter lhs: The left-hand queue.
+- parameter rhs: The right-hand queue.
+
+- returns: True if these queues contain the same elements. Otherwise returns false.
+*/
+public func ==<Element: Equatable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element>) -> Bool {
+    guard lhs.size == rhs.size else { return false }
+    
+    for index in 0 ..< lhs.size {
+        if lhs.items[index] != rhs.items[index] { return false }
+    }
+    
+    return true
+}
+
+/**
+Returns result of equivalent operation !(lhs == rhs).
+
+- parameter lhs: The left-hand queue.
+- parameter rhs: The right-hand queue.
+
+- returns: Returns result of equivalent operation !(lhs == rhs).
+*/
+public func !=<Element: Equatable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element>) -> Bool {
+    return !(lhs == rhs)
+}
+
+/**
+Compares elements sequentially using operator< and stops at the first occurance where a<b or b<a.
+
+- parameter lhs: The left-hand queue.
+- parameter rhs: The right-hand queue.
+
+- returns: Returns true if the first element in which the queues differ, the left hand element is less than the right hand element. Otherwise returns false.
+*/
+public func <<Element: Comparable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element>) -> Bool {
+    for index in 0 ..< lhs.size {
+        if index >= rhs.size { return false }
+        
+        if lhs.items[index] < rhs.items[index] {
+            return true
+        } else if rhs.items[index] < lhs.items[index] {
+            return false
+        }
+    }
+    
+    return false
+}
+
+/**
+Returns result of equivalent operation rhs < lhs.
+
+- parameter lhs: The left-hand queue.
+- parameter rhs: The right-hand queue.
+
+- returns: Returns result of equivalent operation rhs < lhs.
+*/
+public func ><Element: Comparable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element>) -> Bool {
+    return rhs < lhs
+}
+
+/**
+Returns result of equivalent operation !(rhs < lhs).
+
+- parameter lhs: The left-hand queue.
+- parameter rhs: The right-hand queue.
+
+- returns: Returns result of equivalent operation !(rhs < lhs).
+*/
+public func <=<Element: Comparable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element>) -> Bool {
+    return !(rhs < lhs)
+}
+
+/**
+Returns result of equivalent operation !(lhs < rhs).
+
+- parameter lhs: The left-hand queue.
+- parameter rhs: The right-hand queue.
+
+- returns: Returns result of equivalent operation !(lhs < rhs).
+*/
+public func >=<Element: Comparable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element>) -> Bool {
+    return !(lhs < rhs)
 }

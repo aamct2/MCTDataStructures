@@ -34,9 +34,9 @@ class MCTQueue_Tests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        testQueue = MCTQueue<Int>(capacity: 10)
-        testQueue.pushObject(-1)
-        testQueue.pushObject(3)
+        testQueue = MCTQueue<Int>()
+        testQueue.push(-1)
+        testQueue.push(3)
     }
     
     override func tearDown() {
@@ -44,23 +44,15 @@ class MCTQueue_Tests: XCTestCase {
         super.tearDown()
     }
     
-    // MARK: - Initializers
-    
-    func testInit() {
-        let sampleSize = 7
-        let newQueue = MCTQueue<Int>(capacity: sampleSize)
-        
-        XCTAssertNotNil(newQueue)
-    }
     
     // MARK: - Properties
     
     func testSize() {
-        testQueue.pushObject(4)
+        testQueue.push(4)
         
         XCTAssertEqual(testQueue.size, 3)
         
-        testQueue.popObject()
+        testQueue.pop()
         
         XCTAssertEqual(testQueue.size, 2)
         
@@ -76,24 +68,23 @@ class MCTQueue_Tests: XCTestCase {
     // MARK: - Methods
     
     func testPopObject() {
-        XCTAssertEqual(testQueue.popObject(), -1)
-        XCTAssertEqual(testQueue.popObject(), 3)
+        XCTAssertEqual(testQueue.pop(), -1)
+        XCTAssertEqual(testQueue.pop(), 3)
         
-        XCTAssertNil(testQueue.popObject())
+        XCTAssertNil(testQueue.pop())
     }
     
     func testPushObject() {
-        let newQueue = MCTQueue<Int>(capacity: 2)
+        var newQueue = MCTQueue<Int>()
         
-        newQueue.pushObject(-1)
+        newQueue.push(-1)
         
-        XCTAssertEqual(newQueue.peek(), -1)
+        XCTAssertEqual(newQueue.front(), -1)
         
-        newQueue.pushObject(3)
-        newQueue.pushObject(4)
+        newQueue.push(3)
+        newQueue.push(4)
         
-        XCTAssertEqual(newQueue.size, 2)
-        XCTAssertEqual(newQueue.peek(), 3)
+        XCTAssertEqual(newQueue.front(), -1)
     }
     
     func testPopAll() {
@@ -103,19 +94,19 @@ class MCTQueue_Tests: XCTestCase {
     }
     
     func testPeek() {
-        XCTAssertEqual(testQueue.peek(), -1)
+        XCTAssertEqual(testQueue.front(), -1)
         
         testQueue.popAll()
         
-        XCTAssertNil(testQueue.peek())
+        XCTAssertNil(testQueue.front())
     }
     
     func testBottomPeek() {
-        XCTAssertEqual(testQueue.bottomPeek(), 3)
+        XCTAssertEqual(testQueue.back(), 3)
         
         testQueue.popAll()
         
-        XCTAssertNil(testQueue.bottomPeek())
+        XCTAssertNil(testQueue.back())
     }
     
     func testQueueAsArray() {
@@ -136,15 +127,140 @@ class MCTQueue_Tests: XCTestCase {
         XCTAssertEqual(result, 2)
     }
     
-    func testCopy() {
-        let newQueue = testQueue.copy()
+    // MARK: - Logical Operators
+    
+    func testEquality() {
+        var secondQueue = MCTQueue<Int>()
+        secondQueue.push(-1)
+        secondQueue.push(3)
         
-        testQueue.pushObject(4)
+        XCTAssertTrue(testQueue == secondQueue)
         
-        XCTAssertEqual(testQueue.size, 3)
-        XCTAssertEqual(newQueue.size, 2)
-        XCTAssertEqual(newQueue.popObject(), -1)
-        XCTAssertEqual(newQueue.popObject(), 3)
+        var thirdQueue = MCTQueue<Int>()
+        thirdQueue.push(2)
+        thirdQueue.push(3)
+        
+        XCTAssertFalse(testQueue == thirdQueue)
+        
+        var fourthQueue = MCTQueue<Int>()
+        fourthQueue.push(-1)
+        
+        XCTAssertFalse(testQueue == fourthQueue)
+    }
+    
+    func testInequality() {
+        var secondQueue = MCTQueue<Int>()
+        secondQueue.push(-1)
+        secondQueue.push(3)
+        
+        XCTAssertFalse(testQueue != secondQueue)
+        
+        var thirdQueue = MCTQueue<Int>()
+        thirdQueue.push(2)
+        thirdQueue.push(3)
+        
+        XCTAssertTrue(testQueue != thirdQueue)
+        
+        var fourthQueue = MCTQueue<Int>()
+        fourthQueue.push(-1)
+        
+        XCTAssertTrue(testQueue != fourthQueue)
+    }
+    
+    func testLessThan() {
+        var secondQueue = MCTQueue<Int>()
+        secondQueue.push(-1)
+        secondQueue.push(3)
+        
+        XCTAssertFalse(testQueue < secondQueue)
+        
+        var thirdQueue = MCTQueue<Int>()
+        thirdQueue.push(2)
+        thirdQueue.push(3)
+        
+        XCTAssertTrue(testQueue < thirdQueue)
+        
+        var fourthQueue = MCTQueue<Int>()
+        fourthQueue.push(-2)
+        
+        XCTAssertFalse(testQueue < fourthQueue)
+        
+        var fifthQueue = MCTQueue<Int>()
+        fifthQueue.push(-1)
+        
+        XCTAssertFalse(testQueue < fifthQueue)
+    }
+    
+    func testGreaterThan() {
+        var secondQueue = MCTQueue<Int>()
+        secondQueue.push(-1)
+        secondQueue.push(3)
+        
+        XCTAssertFalse(testQueue > secondQueue)
+        
+        var thirdQueue = MCTQueue<Int>()
+        thirdQueue.push(2)
+        thirdQueue.push(3)
+        
+        XCTAssertFalse(testQueue > thirdQueue)
+        
+        var fourthQueue = MCTQueue<Int>()
+        fourthQueue.push(-2)
+        
+        XCTAssertTrue(testQueue > fourthQueue)
+        
+        var fifthQueue = MCTQueue<Int>()
+        fifthQueue.push(-1)
+        
+        XCTAssertFalse(testQueue > fifthQueue)
+    }
+    
+    func testLessThanOrEqual() {
+        var secondQueue = MCTQueue<Int>()
+        secondQueue.push(-1)
+        secondQueue.push(3)
+        
+        XCTAssertTrue(testQueue <= secondQueue)
+        
+        var thirdQueue = MCTQueue<Int>()
+        thirdQueue.push(2)
+        thirdQueue.push(3)
+        
+        XCTAssertTrue(testQueue <= thirdQueue)
+        
+        var fourthQueue = MCTQueue<Int>()
+        fourthQueue.push(-2)
+        
+        XCTAssertFalse(testQueue <= fourthQueue)
+        
+        var fifthQueue = MCTQueue<Int>()
+        fifthQueue.push(-1)
+        
+        XCTAssertTrue(testQueue <= fifthQueue)
+    }
+    
+    func testGreaterThanOrEqual() {
+        var secondQueue = MCTQueue<Int>()
+        secondQueue.push(-1)
+        secondQueue.push(3)
+        
+        XCTAssertTrue(testQueue >= secondQueue)
+        
+        var thirdQueue = MCTQueue<Int>()
+        thirdQueue.push(2)
+        thirdQueue.push(3)
+        
+        XCTAssertFalse(testQueue >= thirdQueue)
+        
+        var fourthQueue = MCTQueue<Int>()
+        fourthQueue.push(-2)
+        
+        XCTAssertTrue(testQueue >= fourthQueue)
+        
+        var fifthQueue = MCTQueue<Int>()
+        fifthQueue.push(-1)
+        
+        XCTAssertTrue(testQueue >= fifthQueue)
     }
     
 }
