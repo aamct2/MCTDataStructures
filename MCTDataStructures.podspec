@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.license = 'MIT'
   s.summary = 'Common data structures in Swift'
   s.homepage = 'https://github.com/aamct2/MCTDataStructures'
-  s.author = { 'Aaron McTavish' }
+  s.authors = { 'Aaron McTavish' => 'aaron@mctavishsolutions.com' }
   s.source = { :git => 'https://github.com/aamct2/MCTDataStructures', :tag => s.version }
 
   s.ios.deployment_target = '9.0'
