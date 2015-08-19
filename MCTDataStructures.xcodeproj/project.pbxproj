@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B423AE91B84DF5000340E8F /* MCTDequeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B423AE81B84DF5000340E8F /* MCTDequeTests.swift */; };
+		4B423AEA1B84DF5500340E8F /* MCTDequeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B423AE81B84DF5000340E8F /* MCTDequeTests.swift */; };
 		4B9DE0FB1B84CD910074AD71 /* MCTDeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DE0FA1B84CD910074AD71 /* MCTDeque.swift */; };
 		4B9DE0FC1B84CD910074AD71 /* MCTDeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DE0FA1B84CD910074AD71 /* MCTDeque.swift */; };
 		4BA425CD1B7D1C2100861E83 /* MCTQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */; };
@@ -41,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B423AE81B84DF5000340E8F /* MCTDequeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCTDequeTests.swift; sourceTree = "<group>"; };
 		4B9DE0FA1B84CD910074AD71 /* MCTDeque.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCTDeque.swift; sourceTree = "<group>"; };
 		4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCTQueue_Tests.swift; sourceTree = "<group>"; };
 		4BA425CF1B7D27F800861E83 /* MCTStack_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCTStack_Tests.swift; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				93C1FAEA1B7CE71D00E73CB4 /* Info.plist */,
+				4B423AE81B84DF5000340E8F /* MCTDequeTests.swift */,
 				4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */,
 				4BA425CF1B7D27F800861E83 /* MCTStack_Tests.swift */,
 			);
@@ -317,6 +321,7 @@
 			files = (
 				4BA425CD1B7D1C2100861E83 /* MCTQueue_Tests.swift in Sources */,
 				4BA425D01B7D27F800861E83 /* MCTStack_Tests.swift in Sources */,
+				4B423AE91B84DF5000340E8F /* MCTDequeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +341,7 @@
 			files = (
 				4BA425CE1B7D1C2400861E83 /* MCTQueue_Tests.swift in Sources */,
 				4BA425D11B7D27FC00861E83 /* MCTStack_Tests.swift in Sources */,
+				4B423AEA1B84DF5500340E8F /* MCTDequeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
