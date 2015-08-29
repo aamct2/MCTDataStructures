@@ -1,0 +1,4 @@
+language: objective-c
+osx_image: xcode7
+xcode_project: MCTDataStructures.xcodeproj
+xcode_scheme: MCTDataStructuresTests iOS
