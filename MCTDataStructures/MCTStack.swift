@@ -133,8 +133,8 @@ public struct MCTStackGenerator<Element> : GeneratorType {
     public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         
-        let ret = items[0]
-        items = items[1 ..< items.count]
+        let ret = items.first
+        items.removeFirst()
         
         return ret
     }
