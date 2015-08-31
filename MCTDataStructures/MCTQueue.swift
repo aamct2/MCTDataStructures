@@ -120,8 +120,8 @@ public extension MCTQueue {
         return items
     }
     
-    public func generate() -> QueueGenerator<T> {
-        return QueueGenerator<T>(items: items[0 ..< items.count])
+    public func generate() -> MCTQueueGenerator<T> {
+        return MCTQueueGenerator<T>(items: items[0 ..< items.count])
     }
     
 }
@@ -129,17 +129,17 @@ public extension MCTQueue {
 
 // MARK: - Queue Generator Type
 
-public struct QueueGenerator<T> : GeneratorType {
-    public mutating func next() -> T? {
+public struct MCTQueueGenerator<Element> : GeneratorType {
+    public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         
-        let ret = items[0]
-        items = items[1 ..< items.count]
+        let ret = items.first
+        items.removeFirst()
         
         return ret
     }
     
-    var items: ArraySlice<T>
+    var items: ArraySlice<Element>
 }
 
 
