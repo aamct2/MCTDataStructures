@@ -33,7 +33,7 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     /// Underlying container (array) representation of queue. Array is arranged as a heap.
     private var items = [Element]()
     
-    /// Comparator for elements used in ordering the priority queue.
+    /// Comparator for elements used in ordering the priority queue. Returns true if `lhs` should come before `rhs`.
     private var comp: (lhs: Element, rhs: Element) -> (Bool)
     
     /// The number of elements in the queue.
@@ -52,7 +52,7 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     /**
     Initializer for priority queue.
     
-    - parameter comp: Comparison closure.
+    - parameter comp: Comparison closure. Return true if `lhs` should come before `rhs`.
     */
     init(comp : (lhs: Element, rhs: Element) -> (Bool)) {
         self.comp = comp
