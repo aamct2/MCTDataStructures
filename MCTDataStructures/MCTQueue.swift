@@ -26,12 +26,12 @@
 import Foundation
 
 /// Generic implementation of a First In First Out (FIFO) queue collection.
-public struct MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConvertible, SequenceType {
     
     // MARK: - Properties
     
     /// Underlying container (array) representation of queue.
-    private var items = [T]()
+    private var items = [Element]()
     
     /// The number of elements in the queue.
     public var size: Int {
@@ -51,7 +51,7 @@ public struct MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, S
     
     - returns: The first element of the queue, if it exists.
     */
-    public mutating func pop() -> T? {
+    public mutating func pop() -> Element? {
         if empty { return nil }
         
         return items.removeAtIndex(0)
@@ -62,7 +62,7 @@ public struct MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, S
     
     - parameter newObject: Element to push onto the queue.
     */
-    public mutating func push(newObject: T) {
+    public mutating func push(newObject: Element) {
         items.append(newObject)
     }
     
@@ -71,7 +71,7 @@ public struct MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, S
     
     - returns: The next element of the queue, if it exists.
     */
-    public func front() -> T? {
+    public func front() -> Element? {
         if empty { return nil }
         
         return items[0]
@@ -82,7 +82,7 @@ public struct MCTQueue<T : CustomStringConvertible> : CustomStringConvertible, S
     
     - returns: The last element of the queue, if it exists.
     */
-    public func back() -> T? {
+    public func back() -> Element? {
         if empty { return nil }
         
         return items[size - 1]
@@ -116,12 +116,15 @@ public extension MCTQueue {
     
     - returns: Array representation of the queue.
     */
-    public func queueAsArray() -> [T] {
+    public func queueAsArray() -> [Element] {
         return items
     }
     
-    public func generate() -> MCTQueueGenerator<T> {
-        return MCTQueueGenerator<T>(items: items[0 ..< items.count])
+    /// Return a *generator* over the elements.
+    ///
+    /// - Complexity: O(1).
+    public func generate() -> MCTQueueGenerator<Element> {
+        return MCTQueueGenerator<Element>(items: items[0 ..< items.count])
     }
     
 }
@@ -143,7 +146,7 @@ public struct MCTQueueGenerator<Element> : GeneratorType {
 }
 
 
-// MARK: - Relational Operators
+// MARK: - Relational Operators for Queues
 
 /**
 Returns true if these queues contain the same elements.

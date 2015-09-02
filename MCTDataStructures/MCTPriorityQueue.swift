@@ -1,8 +1,8 @@
 //
-//  MCTStack.swift
+//  MCTPriorityQueue.swift
 //  MCTDataStructures
 //
-//  Created by Aaron McTavish on 8/13/15.
+//  Created by opensource on 8/31/15.
 //  Copyright © 2015 Aaron McTavish. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,55 +25,72 @@
 
 import Foundation
 
-/// Generic implementation of a Last In First Out (LIFO) stack collection.
-public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
-    
+/// Generic implementation of a priority queue collection.
+public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+
     // MARK: - Properties
     
-    /// Underlying container (array) representation of stack.
+    /// Underlying container (array) representation of queue. Array is arranged as a heap.
     private var items = [Element]()
     
-    /// The number of elements in the stack.
+    /// Comparator for elements used in ordering the priority queue. Returns true if `lhs` should come before `rhs`.
+    private var comp: (lhs: Element, rhs: Element) -> (Bool)
+    
+    /// The number of elements in the queue.
     public var size: Int {
         return items.count
     }
     
-    /// Test whether the stack is empty.
+    /// Test whether the queue is empty.
     public var empty: Bool {
         return items.isEmpty
     }
     
+    
+    // MARK: - Initializers
+    
+    /**
+    Initializer for priority queue.
+    
+    - parameter comp: Comparison closure. Return true if `lhs` should come before `rhs`.
+    */
+    init(comp : (lhs: Element, rhs: Element) -> (Bool)) {
+        self.comp = comp
+    }
+    
+    
     // MARK: - C++11 Functions
     
     /**
-    Remove the top element of the stack.
+    Remove the first element of the priority queue.
     
-    - returns: The top element of the stack, if it exists.
+    - returns: The first element of the priority queue, if it exists.
     */
     public mutating func pop() -> Element? {
         if empty { return nil }
         
-        return items.removeLast()
+        return items.removeAtIndex(0)
     }
     
     /**
-    Insert element on top of the stack.
+    Insert element at the end of the priority queue. Then reorders the queue.
     
-    - parameter newObject: Element to push onto the stack.
+    - parameter newObject: Element to push onto the priority queue.
     */
     public mutating func push(newObject: Element) {
         items.append(newObject)
+        items.sortInPlace(comp)
     }
     
     /**
-    Access the top element of the stack without removing it.
+    Access the next element of the priority queue without removing it.
     
-    - returns: The top element of the stack, if it exists.
+    - returns: The next element of the priority queue, if it exists.
     */
     public func top() -> Element? {
         if empty { return nil }
         
-        return items[size - 1]
+        return items[0]
     }
     
 }
@@ -81,8 +98,9 @@ public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
 
 // MARK: - Additional Convenience Functions
 
-public extension MCTStack {
-    /// A text representation of the stack.
+public extension MCTPriorityQueue {
+    
+    /// A text representation of the queue.
     public var description : String {
         var result = ""
         for curObject in items {
@@ -93,46 +111,34 @@ public extension MCTStack {
     }
     
     /**
-    Removes all elements from the stack.
+    Removes all elements from the priority queue.
     */
     public mutating func popAll() {
         items.removeAll()
     }
     
     /**
-    Returns a `MCTStack` containing the elements of `self` in reverse order.
+    Returns the priority queue as an array object.
     
-    - returns: A `MCTStack` containing the elements of `self` in reverse order.
+    - returns: Array representation of the priority queue.
     */
-    public func reverseStack() -> MCTStack<Element> {
-        var newStack = MCTStack<Element>()
-        
-        newStack.items = items.reverse()
-        
-        return newStack
-    }
-    
-    /**
-    Returns the stack as an array object.
-    
-    - returns: Array representation of the stack.
-    */
-    public func stackAsArray() -> [Element] {
+    public func queueAsArray() -> [Element] {
         return items
     }
     
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTStackGenerator<Element> {
-        return MCTStackGenerator<Element>(items: items[0 ..< items.count])
+    public func generate() -> MCTPriorityQueueGenerator<Element> {
+        return MCTPriorityQueueGenerator<Element>(items: items[0 ..< items.count])
     }
+    
 }
 
 
-// MARK: - Stack Generator Type
+// MARK: - Priority Queue Generator Type
 
-public struct MCTStackGenerator<Element> : GeneratorType {
+public struct MCTPriorityQueueGenerator<Element> : GeneratorType {
     public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         
@@ -146,17 +152,17 @@ public struct MCTStackGenerator<Element> : GeneratorType {
 }
 
 
-// MARK: - Relational Operators for Stacks
+// MARK: - Relational Operators for Priority Queues
 
 /**
-Returns true if these stacks contain the same elements.
+Returns true if these priority queues contain the same elements.
 
-- parameter lhs: The left-hand stack.
-- parameter rhs: The right-hand stack.
+- parameter lhs: The left-hand priority queue.
+- parameter rhs: The right-hand priority queue.
 
-- returns: True if these stacks contain the same elements. Otherwise returns false.
+- returns: True if these priority queues contain the same elements. Otherwise returns false.
 */
-public func ==<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+public func ==<Element: Equatable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPriorityQueue<Element>) -> Bool {
     guard lhs.size == rhs.size else { return false }
     
     for index in 0 ..< lhs.size {
@@ -169,24 +175,24 @@ public func ==<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element
 /**
 Returns result of equivalent operation !(lhs == rhs).
 
-- parameter lhs: The left-hand stack.
-- parameter rhs: The right-hand stack.
+- parameter lhs: The left-hand priority queue.
+- parameter rhs: The right-hand priority queue.
 
 - returns: Returns result of equivalent operation !(lhs == rhs).
 */
-public func !=<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+public func !=<Element: Equatable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPriorityQueue<Element>) -> Bool {
     return !(lhs == rhs)
 }
 
 /**
 Compares elements sequentially using operator< and stops at the first occurance where a<b or b<a.
 
-- parameter lhs: The left-hand stack.
-- parameter rhs: The right-hand stack.
+- parameter lhs: The left-hand priority queue.
+- parameter rhs: The right-hand priority queue.
 
-- returns: Returns true if the first element in which the stacks differ, the left hand element is less than the right hand element. Otherwise returns false.
+- returns: Returns true if the first element in which the priority queues differ, the left hand element is less than the right hand element. Otherwise returns false.
 */
-public func <<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+public func <<Element: Comparable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPriorityQueue<Element>) -> Bool {
     for index in 0 ..< lhs.size {
         if index >= rhs.size { return false }
         
@@ -203,35 +209,35 @@ public func <<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element
 /**
 Returns result of equivalent operation rhs < lhs.
 
-- parameter lhs: The left-hand stack.
-- parameter rhs: The right-hand stack.
+- parameter lhs: The left-hand priority queue.
+- parameter rhs: The right-hand priority queue.
 
 - returns: Returns result of equivalent operation rhs < lhs.
 */
-public func ><Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+public func ><Element: Comparable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPriorityQueue<Element>) -> Bool {
     return rhs < lhs
 }
 
 /**
 Returns result of equivalent operation !(rhs < lhs).
 
-- parameter lhs: The left-hand stack.
-- parameter rhs: The right-hand stack.
+- parameter lhs: The left-hand priority queue.
+- parameter rhs: The right-hand priority queue.
 
 - returns: Returns result of equivalent operation !(rhs < lhs).
 */
-public func <=<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+public func <=<Element: Comparable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPriorityQueue<Element>) -> Bool {
     return !(rhs < lhs)
 }
 
 /**
 Returns result of equivalent operation !(lhs < rhs).
 
-- parameter lhs: The left-hand stack.
-- parameter rhs: The right-hand stack.
+- parameter lhs: The left-hand priority queue.
+- parameter rhs: The right-hand priority queue.
 
 - returns: Returns result of equivalent operation !(lhs < rhs).
 */
-public func >=<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
+public func >=<Element: Comparable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPriorityQueue<Element>) -> Bool {
     return !(lhs < rhs)
 }
