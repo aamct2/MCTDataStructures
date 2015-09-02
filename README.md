@@ -8,6 +8,7 @@ MCTDataStructures is a library of common data structures written in Swift that a
 
 - [x] Standard Data Structures Following C++ Standard Template Library (STL)
 - [x] Comprehensive Unit Test Coverage
+- [x] [Complete Documentation](http://cocoadocs.org/docsets/MCTDataStructures)
 
 ## Requirements
 
