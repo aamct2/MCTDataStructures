@@ -120,6 +120,9 @@ public extension MCTQueue {
         return items
     }
     
+    /// Return a *generator* over the elements.
+    ///
+    /// - Complexity: O(1).
     public func generate() -> MCTQueueGenerator<Element> {
         return MCTQueueGenerator<Element>(items: items[0 ..< items.count])
     }
@@ -143,7 +146,7 @@ public struct MCTQueueGenerator<Element> : GeneratorType {
 }
 
 
-// MARK: - Relational Operators
+// MARK: - Relational Operators for Queues
 
 /**
 Returns true if these queues contain the same elements.

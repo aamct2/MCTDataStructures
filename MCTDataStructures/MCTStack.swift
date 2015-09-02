@@ -121,6 +121,9 @@ public extension MCTStack {
         return items
     }
     
+    /// Return a *generator* over the elements.
+    ///
+    /// - Complexity: O(1).
     public func generate() -> MCTStackGenerator<Element> {
         return MCTStackGenerator<Element>(items: items[0 ..< items.count])
     }
@@ -143,7 +146,7 @@ public struct MCTStackGenerator<Element> : GeneratorType {
 }
 
 
-// MARK: - Relational Operators
+// MARK: - Relational Operators for Stacks
 
 /**
 Returns true if these stacks contain the same elements.

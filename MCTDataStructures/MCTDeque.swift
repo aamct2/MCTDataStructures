@@ -177,8 +177,11 @@ public extension MCTDeque {
         return items
     }
     
-    public func generate() -> DequeGenerator<Element> {
-        return DequeGenerator<Element>(items: items[0 ..< items.count])
+    /// Return a *generator* over the elements.
+    ///
+    /// - Complexity: O(1).
+    public func generate() -> MCTDequeGenerator<Element> {
+        return MCTDequeGenerator<Element>(items: items[0 ..< items.count])
     }
     
 }
@@ -186,7 +189,7 @@ public extension MCTDeque {
 
 // MARK: - Deque Generator Type
 
-public struct DequeGenerator<Element> : GeneratorType {
+public struct MCTDequeGenerator<Element> : GeneratorType {
     public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         
@@ -200,7 +203,7 @@ public struct DequeGenerator<Element> : GeneratorType {
 }
 
 
-// MARK: - Relational Operators
+// MARK: - Relational Operators for Deques
 
 /**
 Returns true if these deques contain the same elements.

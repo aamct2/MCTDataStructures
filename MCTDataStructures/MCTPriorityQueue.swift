@@ -126,6 +126,9 @@ public extension MCTPriorityQueue {
         return items
     }
     
+    /// Return a *generator* over the elements.
+    ///
+    /// - Complexity: O(1).
     public func generate() -> MCTPriorityQueueGenerator<Element> {
         return MCTPriorityQueueGenerator<Element>(items: items[0 ..< items.count])
     }
@@ -149,7 +152,7 @@ public struct MCTPriorityQueueGenerator<Element> : GeneratorType {
 }
 
 
-// MARK: - Relational Operators
+// MARK: - Relational Operators for Priority Queues
 
 /**
 Returns true if these priority queues contain the same elements.
