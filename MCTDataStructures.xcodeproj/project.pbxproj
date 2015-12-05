@@ -9,16 +9,16 @@
 /* Begin PBXBuildFile section */
 		4B423AE91B84DF5000340E8F /* MCTDeque_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B423AE81B84DF5000340E8F /* MCTDeque_Tests.swift */; };
 		4B423AEA1B84DF5500340E8F /* MCTDeque_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B423AE81B84DF5000340E8F /* MCTDeque_Tests.swift */; };
-		4B5AC74F1B952741009FE942 /* MCTPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5AC74E1B952741009FE942 /* MCTPriorityQueue.swift */; settings = {ASSET_TAGS = (); }; };
-		4B5AC7501B952741009FE942 /* MCTPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5AC74E1B952741009FE942 /* MCTPriorityQueue.swift */; settings = {ASSET_TAGS = (); }; };
+		4B5AC74F1B952741009FE942 /* MCTPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5AC74E1B952741009FE942 /* MCTPriorityQueue.swift */; };
+		4B5AC7501B952741009FE942 /* MCTPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5AC74E1B952741009FE942 /* MCTPriorityQueue.swift */; };
 		4B9DE0FB1B84CD910074AD71 /* MCTDeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DE0FA1B84CD910074AD71 /* MCTDeque.swift */; };
 		4B9DE0FC1B84CD910074AD71 /* MCTDeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DE0FA1B84CD910074AD71 /* MCTDeque.swift */; };
 		4BA425CD1B7D1C2100861E83 /* MCTQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */; };
 		4BA425CE1B7D1C2400861E83 /* MCTQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */; };
 		4BA425D01B7D27F800861E83 /* MCTStack_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA425CF1B7D27F800861E83 /* MCTStack_Tests.swift */; };
 		4BA425D11B7D27FC00861E83 /* MCTStack_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA425CF1B7D27F800861E83 /* MCTStack_Tests.swift */; };
-		4BFC112E1B95B1E500009E32 /* MCTPriorityQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFC112D1B95B1E500009E32 /* MCTPriorityQueue_Tests.swift */; settings = {ASSET_TAGS = (); }; };
-		4BFC112F1B95B1E500009E32 /* MCTPriorityQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFC112D1B95B1E500009E32 /* MCTPriorityQueue_Tests.swift */; settings = {ASSET_TAGS = (); }; };
+		4BFC112E1B95B1E500009E32 /* MCTPriorityQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFC112D1B95B1E500009E32 /* MCTPriorityQueue_Tests.swift */; };
+		4BFC112F1B95B1E500009E32 /* MCTPriorityQueue_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFC112D1B95B1E500009E32 /* MCTPriorityQueue_Tests.swift */; };
 		93C1FADD1B7CE71D00E73CB4 /* MCTDataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 93C1FADC1B7CE71D00E73CB4 /* MCTDataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		93C1FAE41B7CE71D00E73CB4 /* MCTDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C1FAD91B7CE71D00E73CB4 /* MCTDataStructures.framework */; };
 		93C1FAF41B7CE78A00E73CB4 /* MCTQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C1FAF31B7CE78A00E73CB4 /* MCTQueue.swift */; };
