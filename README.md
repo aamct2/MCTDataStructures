@@ -1,6 +1,8 @@
 # MCTDataStructures
 
 [![Build Status](https://travis-ci.org/aamct2/MCTDataStructures.svg)](https://travis-ci.org/aamct2/MCTDataStructures)
+[![codecov.io](https://codecov.io/github/aamct2/MCTDataStructures/coverage.svg?branch=master)](https://codecov.io/github/aamct2/MCTDataStructures?branch=master)
+[![Platform](https://img.shields.io/cocoapods/p/MCTDataStructures.svg?style=flat)](http://cocoadocs.org/docsets/MCTDataStructures)
 
 MCTDataStructures is a library of common data structures written in Swift that are not found in the language by default.
 
