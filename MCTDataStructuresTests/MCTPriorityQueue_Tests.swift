@@ -181,6 +181,9 @@ class MCTPriorityQueue_Tests: XCTestCase {
         fifthQueue.push(-1)
         
         XCTAssertFalse(testQueue < fifthQueue)
+        
+        let sixthQueue = MCTPriorityQueue<Int>(comp: >)
+        XCTAssertFalse(testQueue < sixthQueue)
     }
     
     func testGreaterThan() {
