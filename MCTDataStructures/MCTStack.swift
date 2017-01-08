@@ -26,12 +26,12 @@
 import Foundation
 
 /// Generic implementation of a Last In First Out (LIFO) stack collection.
-public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
+public struct MCTStack<Element> : CustomStringConvertible, Sequence {
     
     // MARK: - Properties
     
     /// Underlying container (array) representation of stack.
-    private var items = [Element]()
+    fileprivate var items = [Element]()
     
     /// The number of elements in the stack.
     public var size: Int {
@@ -61,7 +61,7 @@ public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
     
     - parameter newObject: Element to push onto the stack.
     */
-    public mutating func push(newObject: Element) {
+    public mutating func push(_ newObject: Element) {
         items.append(newObject)
     }
     
@@ -107,7 +107,7 @@ public extension MCTStack {
     public func reverseStack() -> MCTStack<Element> {
         var newStack = MCTStack<Element>()
         
-        newStack.items = items.reverse()
+        newStack.items = items.reversed()
         
         return newStack
     }
@@ -124,7 +124,7 @@ public extension MCTStack {
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTStackGenerator<Element> {
+    public func makeIterator() -> MCTStackGenerator<Element> {
         return MCTStackGenerator<Element>(items: items[0 ..< items.count])
     }
 }
@@ -132,7 +132,7 @@ public extension MCTStack {
 
 // MARK: - Stack Generator Type
 
-public struct MCTStackGenerator<Element> : GeneratorType {
+public struct MCTStackGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         

@@ -26,12 +26,12 @@
 import Foundation
 
 /// Generic implementation of a double-ended queue collection.
-public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConvertible, Sequence {
     
     // MARK: - Properties
     
     /// Underlying container (array) representation of deque.
-    private var items = [Element]()
+    fileprivate var items = [Element]()
     
     /// The number of elements in the deque.
     public var size: Int {
@@ -54,7 +54,7 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     public mutating func pop_back() -> Element? {
         if empty { return nil }
         
-        return items.removeAtIndex(size - 1)
+        return items.remove(at: size - 1)
     }
     
     /**
@@ -65,7 +65,7 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     public mutating func pop_front() -> Element? {
         if empty { return nil }
         
-        return items.removeAtIndex(0)
+        return items.remove(at: 0)
     }
     
     /**
@@ -73,7 +73,7 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     
     - parameter newObject: Element to push onto the deque.
     */
-    public mutating func push_back(newObject: Element) {
+    public mutating func push_back(_ newObject: Element) {
         items.append(newObject)
     }
     
@@ -82,8 +82,8 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     
     - parameter newObject: Element to push onto the deque.
     */
-    public mutating func push_front(newObject: Element) {
-        items.insert(newObject, atIndex: 0)
+    public mutating func push_front(_ newObject: Element) {
+        items.insert(newObject, at: 0)
     }
     
     /**
@@ -120,10 +120,10 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     
     - parameter index: Index at which to remove the element.
     */
-    public mutating func erase(index: Int) {
+    public mutating func erase(_ index: Int) {
         guard index >= 0 && index < size else { return }
         
-        items.removeAtIndex(index)
+        items.remove(at: index)
     }
     
     /**
@@ -132,11 +132,11 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     - parameter startIndex: Index of first object to remove.
     - parameter endIndex:   Index after the last object to remove.
     */
-    public mutating func erase(startIndex: Int, endIndex: Int) {
+    public mutating func erase(_ startIndex: Int, endIndex: Int) {
         guard startIndex >= 0 && startIndex < size &&
             endIndex > startIndex && endIndex <= size else { return }
         
-        items.removeRange(startIndex ..< endIndex)
+        items.removeSubrange(startIndex ..< endIndex)
     }
     
 }
@@ -163,7 +163,7 @@ public extension MCTDeque {
     public func reverseDeque() -> MCTDeque<Element> {
         var newDeque = MCTDeque<Element>()
         
-        newDeque.items = items.reverse()
+        newDeque.items = items.reversed()
         
         return newDeque
     }
@@ -180,7 +180,7 @@ public extension MCTDeque {
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTDequeGenerator<Element> {
+    public func makeIterator() -> MCTDequeGenerator<Element> {
         return MCTDequeGenerator<Element>(items: items[0 ..< items.count])
     }
     
@@ -189,7 +189,7 @@ public extension MCTDeque {
 
 // MARK: - Deque Generator Type
 
-public struct MCTDequeGenerator<Element> : GeneratorType {
+public struct MCTDequeGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         

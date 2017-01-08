@@ -26,12 +26,12 @@
 import Foundation
 
 /// Generic implementation of a First In First Out (FIFO) queue collection.
-public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConvertible, Sequence {
     
     // MARK: - Properties
     
     /// Underlying container (array) representation of queue.
-    private var items = [Element]()
+    fileprivate var items = [Element]()
     
     /// The number of elements in the queue.
     public var size: Int {
@@ -54,7 +54,7 @@ public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConverti
     public mutating func pop() -> Element? {
         if empty { return nil }
         
-        return items.removeAtIndex(0)
+        return items.remove(at: 0)
     }
     
     /**
@@ -62,7 +62,7 @@ public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConverti
     
     - parameter newObject: Element to push onto the queue.
     */
-    public mutating func push(newObject: Element) {
+    public mutating func push(_ newObject: Element) {
         items.append(newObject)
     }
     
@@ -123,7 +123,7 @@ public extension MCTQueue {
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTQueueGenerator<Element> {
+    public func makeIterator() -> MCTQueueGenerator<Element> {
         return MCTQueueGenerator<Element>(items: items[0 ..< items.count])
     }
     
@@ -132,7 +132,7 @@ public extension MCTQueue {
 
 // MARK: - Queue Generator Type
 
-public struct MCTQueueGenerator<Element> : GeneratorType {
+public struct MCTQueueGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         

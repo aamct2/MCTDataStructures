@@ -28,7 +28,7 @@ import XCTest
 
 class MCTDeque_Tests: XCTestCase {
 
-    var testDeque = MCTDeque<Int>!()
+    var testDeque = MCTDeque<Int>()
     
     override func setUp() {
         super.setUp()
@@ -51,7 +51,7 @@ class MCTDeque_Tests: XCTestCase {
         
         XCTAssertEqual(testDeque.size, 3)
         
-        testDeque.pop_back()
+        let _ = testDeque.pop_back()
         
         XCTAssertEqual(testDeque.size, 2)
         

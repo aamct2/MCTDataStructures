@@ -26,15 +26,15 @@
 import Foundation
 
 /// Generic implementation of a priority queue collection.
-public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomStringConvertible, Sequence {
 
     // MARK: - Properties
     
     /// Underlying container (array) representation of queue. Array is arranged as a heap.
-    private var items = [Element]()
+    fileprivate var items = [Element]()
     
     /// Comparator for elements used in ordering the priority queue. Returns true if `lhs` should come before `rhs`.
-    private var comp: (lhs: Element, rhs: Element) -> (Bool)
+    fileprivate var comp: (_ lhs: Element, _ rhs: Element) -> (Bool)
     
     /// The number of elements in the queue.
     public var size: Int {
@@ -54,7 +54,7 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     
     - parameter comp: Comparison closure. Return true if `lhs` should come before `rhs`.
     */
-    init(comp : (lhs: Element, rhs: Element) -> (Bool)) {
+    init(comp : @escaping (_ lhs: Element, _ rhs: Element) -> (Bool)) {
         self.comp = comp
     }
     
@@ -69,7 +69,7 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     public mutating func pop() -> Element? {
         if empty { return nil }
         
-        return items.removeAtIndex(0)
+        return items.remove(at: 0)
     }
     
     /**
@@ -77,9 +77,9 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     
     - parameter newObject: Element to push onto the priority queue.
     */
-    public mutating func push(newObject: Element) {
+    public mutating func push(_ newObject: Element) {
         items.append(newObject)
-        items.sortInPlace(comp)
+        items.sort(by: comp)
     }
     
     /**
@@ -129,7 +129,7 @@ public extension MCTPriorityQueue {
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTPriorityQueueGenerator<Element> {
+    public func makeIterator() -> MCTPriorityQueueGenerator<Element> {
         return MCTPriorityQueueGenerator<Element>(items: items[0 ..< items.count])
     }
     
@@ -138,7 +138,7 @@ public extension MCTPriorityQueue {
 
 // MARK: - Priority Queue Generator Type
 
-public struct MCTPriorityQueueGenerator<Element> : GeneratorType {
+public struct MCTPriorityQueueGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
         if items.isEmpty {return nil}
         
