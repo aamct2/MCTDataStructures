@@ -52,7 +52,7 @@ class MCTPriorityQueue_Tests: XCTestCase {
         
         XCTAssertEqual(testQueue.size, 3)
         
-        testQueue.pop()
+        let _ = testQueue.pop()
         
         XCTAssertEqual(testQueue.size, 2)
         

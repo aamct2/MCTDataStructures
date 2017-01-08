@@ -257,9 +257,11 @@
 					};
 					93C1FAFB1B7CE91D00E73CB4 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0820;
 					};
 					93C1FB041B7CE91D00E73CB4 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -555,6 +557,7 @@
 				PRODUCT_NAME = MCTDataStructures;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -577,6 +580,7 @@
 				PRODUCT_NAME = MCTDataStructures;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -590,6 +594,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mctdatastructures.MCTDataStructuresTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -603,6 +608,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mctdatastructures.MCTDataStructuresTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
