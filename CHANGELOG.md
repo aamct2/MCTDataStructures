@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## Upcoming
 
+## Version 0.11.1
+
 #### Fixed
 - Fixed memberwise initializers scoping. Now all structures have `public` initializers.
 
