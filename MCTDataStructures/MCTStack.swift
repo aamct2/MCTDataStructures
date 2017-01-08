@@ -51,7 +51,9 @@ public struct MCTStack<Element> : CustomStringConvertible, Sequence {
     - returns: The top element of the stack, if it exists.
     */
     public mutating func pop() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items.removeLast()
     }
@@ -71,7 +73,9 @@ public struct MCTStack<Element> : CustomStringConvertible, Sequence {
     - returns: The top element of the stack, if it exists.
     */
     public func top() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items[size - 1]
     }
@@ -83,7 +87,7 @@ public struct MCTStack<Element> : CustomStringConvertible, Sequence {
 
 public extension MCTStack {
     /// A text representation of the stack.
-    public var description : String {
+    public var description: String {
         var result = ""
         for curObject in items {
             result += "::\(curObject)"
@@ -134,7 +138,9 @@ public extension MCTStack {
 
 public struct MCTStackGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
-        if items.isEmpty {return nil}
+        if items.isEmpty {
+            return nil
+        }
         
         let ret = items.first
         items.removeFirst()
@@ -157,10 +163,14 @@ Returns true if these stacks contain the same elements.
 - returns: True if these stacks contain the same elements. Otherwise returns false.
 */
 public func ==<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
-    guard lhs.size == rhs.size else { return false }
+    guard lhs.size == rhs.size else {
+        return false
+    }
     
     for index in 0 ..< lhs.size {
-        if lhs.items[index] != rhs.items[index] { return false }
+        if lhs.items[index] != rhs.items[index] {
+            return false
+        }
     }
     
     return true
@@ -184,11 +194,14 @@ Compares elements sequentially using operator< and stops at the first occurance 
 - parameter lhs: The left-hand stack.
 - parameter rhs: The right-hand stack.
 
-- returns: Returns true if the first element in which the stacks differ, the left hand element is less than the right hand element. Otherwise returns false.
+- returns: Returns true if the first element in which the stacks differ,
+ the left hand element is less than the right hand element. Otherwise returns false.
 */
 public func <<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
     for index in 0 ..< lhs.size {
-        if index >= rhs.size { return false }
+        if index >= rhs.size {
+            return false
+        }
         
         if lhs.items[index] < rhs.items[index] {
             return true
