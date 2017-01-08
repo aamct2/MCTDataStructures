@@ -119,6 +119,16 @@ class MCTDeque_Tests: XCTestCase {
         XCTAssertEqual(testDeque.front(), 3)
     }
     
+    func testEraseAtIndex_InvalidIndex() {
+        testDeque.erase(-1)
+        
+        XCTAssertEqual(testDeque.size, 2)
+        
+        testDeque.erase(5)
+        
+        XCTAssertEqual(testDeque.size, 2)
+    }
+    
     func testEraseRange() {
         testDeque.push_back(4)
         
