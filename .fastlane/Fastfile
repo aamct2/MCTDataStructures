@@ -7,6 +7,7 @@ lane :test do
         scheme: "MCTDataStructures OSX",
         destination: "platform=macOS"
     )
+    verify_swiftpm
     pod_lib_lint
 end
 
@@ -28,6 +29,11 @@ lane :verify do |options|
     }
     scan(opts)
     upload_cov
+end
+
+desc "Runs unit tests using Swift Package Manager"
+lane :verify_swiftpm do
+    sh("swift test")
 end
 
 desc "Upload code coverage reports (if running on CI)"

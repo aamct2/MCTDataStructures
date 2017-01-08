@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## Version 0.11.0
 
+#### Added
+- Added Swift Package Manager support.
+
 #### Update
 - Update project o release of Xcode 8 and Swift 3.
 

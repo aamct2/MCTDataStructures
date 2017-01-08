@@ -15,6 +15,11 @@ Runs tests on the primary platforms and configurations
 fastlane verify
 ```
 Runs unit tests
+### verify_swiftpm
+```
+fastlane verify_swiftpm
+```
+Runs unit tests using Swift Package Manager
 ### upload_cov
 ```
 fastlane upload_cov

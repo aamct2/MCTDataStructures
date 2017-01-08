@@ -101,8 +101,8 @@
 		93C1FACF1B7CE71C00E73CB4 = {
 			isa = PBXGroup;
 			children = (
-				93C1FADB1B7CE71D00E73CB4 /* MCTDataStructures */,
-				93C1FAE71B7CE71D00E73CB4 /* MCTDataStructuresTests */,
+				93C1FADB1B7CE71D00E73CB4 /* Sources */,
+				93C1FAE71B7CE71D00E73CB4 /* Tests */,
 				93C1FADA1B7CE71D00E73CB4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		93C1FADB1B7CE71D00E73CB4 /* MCTDataStructures */ = {
+		93C1FADB1B7CE71D00E73CB4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				93C1FADC1B7CE71D00E73CB4 /* MCTDataStructures.h */,
@@ -128,10 +128,11 @@
 				93C1FAF31B7CE78A00E73CB4 /* MCTQueue.swift */,
 				93C1FAF51B7CE7B000E73CB4 /* MCTStack.swift */,
 			);
-			path = MCTDataStructures;
+			name = Sources;
+			path = Sources/MCTDataStructures;
 			sourceTree = "<group>";
 		};
-		93C1FAE71B7CE71D00E73CB4 /* MCTDataStructuresTests */ = {
+		93C1FAE71B7CE71D00E73CB4 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				93C1FAEA1B7CE71D00E73CB4 /* Info.plist */,
@@ -140,7 +141,8 @@
 				4BA425CC1B7D1C2100861E83 /* MCTQueue_Tests.swift */,
 				4BA425CF1B7D27F800861E83 /* MCTStack_Tests.swift */,
 			);
-			path = MCTDataStructuresTests;
+			name = Tests;
+			path = Tests/MCTDataStructuresTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,7 +330,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Swiftlint";
+			name = Swiftlint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,7 +344,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Swiftlint";
+			name = Swiftlint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,7 +522,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = MCTDataStructures/Info.plist;
+				INFOPLIST_FILE = Sources/MCTDataStructures/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mctdatastructures.MCTDataStructures;
@@ -543,7 +545,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = MCTDataStructures/Info.plist;
+				INFOPLIST_FILE = Sources/MCTDataStructures/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mctdatastructures.MCTDataStructures;
@@ -557,7 +559,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = MCTDataStructuresTests/Info.plist;
+				INFOPLIST_FILE = Tests/MCTDataStructuresTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mctdatastructures.MCTDataStructuresTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -569,7 +571,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = MCTDataStructuresTests/Info.plist;
+				INFOPLIST_FILE = Tests/MCTDataStructuresTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mctdatastructures.MCTDataStructuresTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -588,7 +590,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = MCTDataStructures/Info.plist;
+				INFOPLIST_FILE = Sources/MCTDataStructures/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -611,7 +613,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = MCTDataStructures/Info.plist;
+				INFOPLIST_FILE = Sources/MCTDataStructures/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -627,7 +629,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MCTDataStructuresTests/Info.plist;
+				INFOPLIST_FILE = Tests/MCTDataStructuresTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mctdatastructures.MCTDataStructuresTests;
@@ -641,7 +643,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MCTDataStructuresTests/Info.plist;
+				INFOPLIST_FILE = Tests/MCTDataStructuresTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mctdatastructures.MCTDataStructuresTests;
