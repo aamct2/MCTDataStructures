@@ -17,7 +17,7 @@ opt_in_rules:
 
 excluded:
   - Pods
-  - MCTDataStructuresTests
+  - Tests
 
 trailing_whitespace:
   ignores_empty_lines: true
