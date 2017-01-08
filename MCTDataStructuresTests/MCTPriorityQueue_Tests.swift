@@ -28,7 +28,7 @@ import XCTest
 
 class MCTPriorityQueue_Tests: XCTestCase {
     
-    var testQueue = MCTPriorityQueue<Int>!()
+    var testQueue = MCTPriorityQueue<Int>(comp: >)
     
     override func setUp() {
         super.setUp()
@@ -52,7 +52,7 @@ class MCTPriorityQueue_Tests: XCTestCase {
         
         XCTAssertEqual(testQueue.size, 3)
         
-        testQueue.pop()
+        let _ = testQueue.pop()
         
         XCTAssertEqual(testQueue.size, 2)
         

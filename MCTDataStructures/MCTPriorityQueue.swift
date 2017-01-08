@@ -26,15 +26,15 @@
 import Foundation
 
 /// Generic implementation of a priority queue collection.
-public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomStringConvertible, Sequence {
 
     // MARK: - Properties
     
     /// Underlying container (array) representation of queue. Array is arranged as a heap.
-    private var items = [Element]()
+    fileprivate var items = [Element]()
     
     /// Comparator for elements used in ordering the priority queue. Returns true if `lhs` should come before `rhs`.
-    private var comp: (lhs: Element, rhs: Element) -> (Bool)
+    fileprivate var comp: (_ lhs: Element, _ rhs: Element) -> (Bool)
     
     /// The number of elements in the queue.
     public var size: Int {
@@ -54,7 +54,7 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     
     - parameter comp: Comparison closure. Return true if `lhs` should come before `rhs`.
     */
-    init(comp : (lhs: Element, rhs: Element) -> (Bool)) {
+    init(comp : @escaping (_ lhs: Element, _ rhs: Element) -> (Bool)) {
         self.comp = comp
     }
     
@@ -67,9 +67,11 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     - returns: The first element of the priority queue, if it exists.
     */
     public mutating func pop() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
-        return items.removeAtIndex(0)
+        return items.remove(at: 0)
     }
     
     /**
@@ -77,9 +79,9 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     
     - parameter newObject: Element to push onto the priority queue.
     */
-    public mutating func push(newObject: Element) {
+    public mutating func push(_ newObject: Element) {
         items.append(newObject)
-        items.sortInPlace(comp)
+        items.sort(by: comp)
     }
     
     /**
@@ -88,7 +90,9 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
     - returns: The next element of the priority queue, if it exists.
     */
     public func top() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items[0]
     }
@@ -101,7 +105,7 @@ public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomString
 public extension MCTPriorityQueue {
     
     /// A text representation of the queue.
-    public var description : String {
+    public var description: String {
         var result = ""
         for curObject in items {
             result += "::\(curObject)"
@@ -129,7 +133,7 @@ public extension MCTPriorityQueue {
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTPriorityQueueGenerator<Element> {
+    public func makeIterator() -> MCTPriorityQueueGenerator<Element> {
         return MCTPriorityQueueGenerator<Element>(items: items[0 ..< items.count])
     }
     
@@ -138,9 +142,11 @@ public extension MCTPriorityQueue {
 
 // MARK: - Priority Queue Generator Type
 
-public struct MCTPriorityQueueGenerator<Element> : GeneratorType {
+public struct MCTPriorityQueueGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
-        if items.isEmpty {return nil}
+        if items.isEmpty {
+            return nil
+        }
         
         let ret = items.first
         items.removeFirst()
@@ -163,10 +169,14 @@ Returns true if these priority queues contain the same elements.
 - returns: True if these priority queues contain the same elements. Otherwise returns false.
 */
 public func ==<Element: Equatable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPriorityQueue<Element>) -> Bool {
-    guard lhs.size == rhs.size else { return false }
+    guard lhs.size == rhs.size else {
+        return false
+    }
     
     for index in 0 ..< lhs.size {
-        if lhs.items[index] != rhs.items[index] { return false }
+        if lhs.items[index] != rhs.items[index] {
+            return false
+        }
     }
     
     return true
@@ -190,11 +200,14 @@ Compares elements sequentially using operator< and stops at the first occurance 
 - parameter lhs: The left-hand priority queue.
 - parameter rhs: The right-hand priority queue.
 
-- returns: Returns true if the first element in which the priority queues differ, the left hand element is less than the right hand element. Otherwise returns false.
+- returns: Returns true if the first element in which the priority queues differ,
+ the left hand element is less than the right hand element. Otherwise returns false.
 */
 public func <<Element: Comparable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPriorityQueue<Element>) -> Bool {
     for index in 0 ..< lhs.size {
-        if index >= rhs.size { return false }
+        if index >= rhs.size {
+            return false
+        }
         
         if lhs.items[index] < rhs.items[index] {
             return true

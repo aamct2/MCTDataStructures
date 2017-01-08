@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Version 0.11.0
+
+#### Update
+- Update project o release of Xcode 8 and Swift 3.
+
 ## Version 0.10.1
 Released 2015-12-05.
 

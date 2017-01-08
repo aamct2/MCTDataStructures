@@ -15,7 +15,7 @@ MCTDataStructures is a library of common data structures written in Swift that a
 ## Requirements
 
 - iOS 9.0+ / Mac OS X 10.11+
-- Xcode 7.0
+- Xcode 8.0
 
 ## Communication
 

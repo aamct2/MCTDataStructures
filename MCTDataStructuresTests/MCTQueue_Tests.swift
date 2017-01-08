@@ -28,7 +28,7 @@ import XCTest
 
 class MCTQueue_Tests: XCTestCase {
     
-    var testQueue = MCTQueue<Int>!()
+    var testQueue = MCTQueue<Int>()
     
     override func setUp() {
         super.setUp()
@@ -52,7 +52,7 @@ class MCTQueue_Tests: XCTestCase {
         
         XCTAssertEqual(testQueue.size, 3)
         
-        testQueue.pop()
+        let _ = testQueue.pop()
         
         XCTAssertEqual(testQueue.size, 2)
         

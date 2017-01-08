@@ -26,12 +26,12 @@
 import Foundation
 
 /// Generic implementation of a double-ended queue collection.
-public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConvertible, Sequence {
     
     // MARK: - Properties
     
     /// Underlying container (array) representation of deque.
-    private var items = [Element]()
+    fileprivate var items = [Element]()
     
     /// The number of elements in the deque.
     public var size: Int {
@@ -52,9 +52,11 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     - returns: The last element of the deque, if it exists.
     */
     public mutating func pop_back() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
-        return items.removeAtIndex(size - 1)
+        return items.remove(at: size - 1)
     }
     
     /**
@@ -63,9 +65,11 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     - returns: The first element of the deque, if it exists.
     */
     public mutating func pop_front() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
-        return items.removeAtIndex(0)
+        return items.remove(at: 0)
     }
     
     /**
@@ -73,7 +77,7 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     
     - parameter newObject: Element to push onto the deque.
     */
-    public mutating func push_back(newObject: Element) {
+    public mutating func push_back(_ newObject: Element) {
         items.append(newObject)
     }
     
@@ -82,8 +86,8 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     
     - parameter newObject: Element to push onto the deque.
     */
-    public mutating func push_front(newObject: Element) {
-        items.insert(newObject, atIndex: 0)
+    public mutating func push_front(_ newObject: Element) {
+        items.insert(newObject, at: 0)
     }
     
     /**
@@ -92,7 +96,9 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     - returns: The next element of the deque, if it exists.
     */
     public func front() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items[0]
     }
@@ -103,7 +109,9 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     - returns: The last element of the deque, if it exists.
     */
     public func back() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items[size - 1]
     }
@@ -120,23 +128,26 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
     
     - parameter index: Index at which to remove the element.
     */
-    public mutating func erase(index: Int) {
-        guard index >= 0 && index < size else { return }
+    public mutating func erase(_ index: Int) {
+        guard index >= 0 && index < size else {
+            return
+        }
         
-        items.removeAtIndex(index)
+        items.remove(at: index)
     }
     
     /**
-    Removes a range of elements inclusive of the `startIndex` and exclusive of the `endIndex`. Effectively, it is the range [`startIndex`, `endIndex`).
+    Removes a range of elements inclusive of the `startIndex` and exclusive of the `endIndex`.
+     Effectively, it is the range [`startIndex`, `endIndex`).
     
     - parameter startIndex: Index of first object to remove.
     - parameter endIndex:   Index after the last object to remove.
     */
-    public mutating func erase(startIndex: Int, endIndex: Int) {
+    public mutating func erase(_ startIndex: Int, endIndex: Int) {
         guard startIndex >= 0 && startIndex < size &&
             endIndex > startIndex && endIndex <= size else { return }
         
-        items.removeRange(startIndex ..< endIndex)
+        items.removeSubrange(startIndex ..< endIndex)
     }
     
 }
@@ -146,7 +157,7 @@ public struct MCTDeque<Element : CustomStringConvertible> : CustomStringConverti
 public extension MCTDeque {
     
     /// A text representation of the deque.
-    public var description : String {
+    public var description: String {
         var result = ""
         for curObject in items {
             result += "::\(curObject)"
@@ -163,7 +174,7 @@ public extension MCTDeque {
     public func reverseDeque() -> MCTDeque<Element> {
         var newDeque = MCTDeque<Element>()
         
-        newDeque.items = items.reverse()
+        newDeque.items = items.reversed()
         
         return newDeque
     }
@@ -180,7 +191,7 @@ public extension MCTDeque {
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTDequeGenerator<Element> {
+    public func makeIterator() -> MCTDequeGenerator<Element> {
         return MCTDequeGenerator<Element>(items: items[0 ..< items.count])
     }
     
@@ -189,9 +200,11 @@ public extension MCTDeque {
 
 // MARK: - Deque Generator Type
 
-public struct MCTDequeGenerator<Element> : GeneratorType {
+public struct MCTDequeGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
-        if items.isEmpty {return nil}
+        if items.isEmpty {
+            return nil
+        }
         
         let ret = items.first
         items.removeFirst()
@@ -214,10 +227,14 @@ Returns true if these deques contain the same elements.
 - returns: True if these deques contain the same elements. Otherwise returns false.
 */
 public func ==<Element: Equatable>(lhs: MCTDeque<Element>, rhs: MCTDeque<Element>) -> Bool {
-    guard lhs.size == rhs.size else { return false }
+    guard lhs.size == rhs.size else {
+        return false
+    }
     
     for index in 0 ..< lhs.size {
-        if lhs.items[index] != rhs.items[index] { return false }
+        if lhs.items[index] != rhs.items[index] {
+            return false
+        }
     }
     
     return true
@@ -241,11 +258,14 @@ Compares elements sequentially using operator< and stops at the first occurance 
 - parameter lhs: The left-hand deque.
 - parameter rhs: The right-hand deque.
 
-- returns: Returns true if the first element in which the deques differ, the left hand element is less than the right hand element. Otherwise returns false.
+- returns: Returns true if the first element in which the deques differ,
+ the left hand element is less than the right hand element. Otherwise returns false.
 */
 public func <<Element: Comparable>(lhs: MCTDeque<Element>, rhs: MCTDeque<Element>) -> Bool {
     for index in 0 ..< lhs.size {
-        if index >= rhs.size { return false }
+        if index >= rhs.size {
+            return false
+        }
         
         if lhs.items[index] < rhs.items[index] {
             return true

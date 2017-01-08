@@ -26,12 +26,12 @@
 import Foundation
 
 /// Generic implementation of a First In First Out (FIFO) queue collection.
-public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConvertible, SequenceType {
+public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConvertible, Sequence {
     
     // MARK: - Properties
     
     /// Underlying container (array) representation of queue.
-    private var items = [Element]()
+    fileprivate var items = [Element]()
     
     /// The number of elements in the queue.
     public var size: Int {
@@ -52,9 +52,11 @@ public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConverti
     - returns: The first element of the queue, if it exists.
     */
     public mutating func pop() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
-        return items.removeAtIndex(0)
+        return items.remove(at: 0)
     }
     
     /**
@@ -62,7 +64,7 @@ public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConverti
     
     - parameter newObject: Element to push onto the queue.
     */
-    public mutating func push(newObject: Element) {
+    public mutating func push(_ newObject: Element) {
         items.append(newObject)
     }
     
@@ -72,7 +74,9 @@ public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConverti
     - returns: The next element of the queue, if it exists.
     */
     public func front() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items[0]
     }
@@ -83,7 +87,9 @@ public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConverti
     - returns: The last element of the queue, if it exists.
     */
     public func back() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items[size - 1]
     }
@@ -95,7 +101,7 @@ public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConverti
 public extension MCTQueue {
     
     /// A text representation of the queue.
-    public var description : String {
+    public var description: String {
         var result = ""
         for curObject in items {
             result += "::\(curObject)"
@@ -123,7 +129,7 @@ public extension MCTQueue {
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTQueueGenerator<Element> {
+    public func makeIterator() -> MCTQueueGenerator<Element> {
         return MCTQueueGenerator<Element>(items: items[0 ..< items.count])
     }
     
@@ -132,9 +138,11 @@ public extension MCTQueue {
 
 // MARK: - Queue Generator Type
 
-public struct MCTQueueGenerator<Element> : GeneratorType {
+public struct MCTQueueGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
-        if items.isEmpty {return nil}
+        if items.isEmpty {
+            return nil
+        }
         
         let ret = items.first
         items.removeFirst()
@@ -157,10 +165,14 @@ Returns true if these queues contain the same elements.
 - returns: True if these queues contain the same elements. Otherwise returns false.
 */
 public func ==<Element: Equatable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element>) -> Bool {
-    guard lhs.size == rhs.size else { return false }
+    guard lhs.size == rhs.size else {
+        return false
+    }
     
     for index in 0 ..< lhs.size {
-        if lhs.items[index] != rhs.items[index] { return false }
+        if lhs.items[index] != rhs.items[index] {
+            return false
+        }
     }
     
     return true
@@ -184,11 +196,14 @@ Compares elements sequentially using operator< and stops at the first occurance 
 - parameter lhs: The left-hand queue.
 - parameter rhs: The right-hand queue.
 
-- returns: Returns true if the first element in which the queues differ, the left hand element is less than the right hand element. Otherwise returns false.
+- returns: Returns true if the first element in which the queues differ,
+ the left hand element is less than the right hand element. Otherwise returns false.
 */
 public func <<Element: Comparable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element>) -> Bool {
     for index in 0 ..< lhs.size {
-        if index >= rhs.size { return false }
+        if index >= rhs.size {
+            return false
+        }
         
         if lhs.items[index] < rhs.items[index] {
             return true

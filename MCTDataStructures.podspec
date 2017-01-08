@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'MCTDataStructures'
-  s.version = '0.10.1'
+  s.version = '0.11.0'
   s.license = 'MIT'
   s.summary = 'Common data structures in Swift'
   s.homepage = 'https://github.com/aamct2/MCTDataStructures'

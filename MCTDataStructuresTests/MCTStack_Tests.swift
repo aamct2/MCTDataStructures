@@ -28,7 +28,7 @@ import XCTest
 
 class MCTStack_Tests: XCTestCase {
     
-    var testStack = MCTStack<Int>!()
+    var testStack = MCTStack<Int>()
     
     override func setUp() {
         super.setUp()
@@ -51,7 +51,7 @@ class MCTStack_Tests: XCTestCase {
         
         XCTAssertEqual(testStack.size, 3)
         
-        testStack.pop()
+        let _ = testStack.pop()
         
         XCTAssertEqual(testStack.size, 2)
         

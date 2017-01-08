@@ -26,12 +26,12 @@
 import Foundation
 
 /// Generic implementation of a Last In First Out (LIFO) stack collection.
-public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
+public struct MCTStack<Element> : CustomStringConvertible, Sequence {
     
     // MARK: - Properties
     
     /// Underlying container (array) representation of stack.
-    private var items = [Element]()
+    fileprivate var items = [Element]()
     
     /// The number of elements in the stack.
     public var size: Int {
@@ -51,7 +51,9 @@ public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
     - returns: The top element of the stack, if it exists.
     */
     public mutating func pop() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items.removeLast()
     }
@@ -61,7 +63,7 @@ public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
     
     - parameter newObject: Element to push onto the stack.
     */
-    public mutating func push(newObject: Element) {
+    public mutating func push(_ newObject: Element) {
         items.append(newObject)
     }
     
@@ -71,7 +73,9 @@ public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
     - returns: The top element of the stack, if it exists.
     */
     public func top() -> Element? {
-        if empty { return nil }
+        if empty {
+            return nil
+        }
         
         return items[size - 1]
     }
@@ -83,7 +87,7 @@ public struct MCTStack<Element> : CustomStringConvertible, SequenceType {
 
 public extension MCTStack {
     /// A text representation of the stack.
-    public var description : String {
+    public var description: String {
         var result = ""
         for curObject in items {
             result += "::\(curObject)"
@@ -107,7 +111,7 @@ public extension MCTStack {
     public func reverseStack() -> MCTStack<Element> {
         var newStack = MCTStack<Element>()
         
-        newStack.items = items.reverse()
+        newStack.items = items.reversed()
         
         return newStack
     }
@@ -124,7 +128,7 @@ public extension MCTStack {
     /// Return a *generator* over the elements.
     ///
     /// - Complexity: O(1).
-    public func generate() -> MCTStackGenerator<Element> {
+    public func makeIterator() -> MCTStackGenerator<Element> {
         return MCTStackGenerator<Element>(items: items[0 ..< items.count])
     }
 }
@@ -132,9 +136,11 @@ public extension MCTStack {
 
 // MARK: - Stack Generator Type
 
-public struct MCTStackGenerator<Element> : GeneratorType {
+public struct MCTStackGenerator<Element> : IteratorProtocol {
     public mutating func next() -> Element? {
-        if items.isEmpty {return nil}
+        if items.isEmpty {
+            return nil
+        }
         
         let ret = items.first
         items.removeFirst()
@@ -157,10 +163,14 @@ Returns true if these stacks contain the same elements.
 - returns: True if these stacks contain the same elements. Otherwise returns false.
 */
 public func ==<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
-    guard lhs.size == rhs.size else { return false }
+    guard lhs.size == rhs.size else {
+        return false
+    }
     
     for index in 0 ..< lhs.size {
-        if lhs.items[index] != rhs.items[index] { return false }
+        if lhs.items[index] != rhs.items[index] {
+            return false
+        }
     }
     
     return true
@@ -184,11 +194,14 @@ Compares elements sequentially using operator< and stops at the first occurance 
 - parameter lhs: The left-hand stack.
 - parameter rhs: The right-hand stack.
 
-- returns: Returns true if the first element in which the stacks differ, the left hand element is less than the right hand element. Otherwise returns false.
+- returns: Returns true if the first element in which the stacks differ,
+ the left hand element is less than the right hand element. Otherwise returns false.
 */
 public func <<Element: Comparable>(lhs: MCTStack<Element>, rhs: MCTStack<Element>) -> Bool {
     for index in 0 ..< lhs.size {
-        if index >= rhs.size { return false }
+        if index >= rhs.size {
+            return false
+        }
         
         if lhs.items[index] < rhs.items[index] {
             return true
