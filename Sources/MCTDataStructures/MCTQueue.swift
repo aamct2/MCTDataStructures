@@ -44,6 +44,11 @@ public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConverti
     }
     
     
+    // MARK: - Initializers
+    
+    public init() {}
+    
+    
     // MARK: - C++11 Functions
     
     /**

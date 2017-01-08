@@ -43,6 +43,12 @@ public struct MCTStack<Element> : CustomStringConvertible, Sequence {
         return items.isEmpty
     }
     
+    
+    // MARK: - Initializers
+    
+    public init() {}
+    
+    
     // MARK: - C++11 Functions
     
     /**
