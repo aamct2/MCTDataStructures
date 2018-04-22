@@ -26,7 +26,7 @@
 import Foundation
 
 /// Generic implementation of a First In First Out (FIFO) queue collection.
-public struct MCTQueue<Element : CustomStringConvertible> : CustomStringConvertible, Sequence {
+public struct MCTQueue<Element: CustomStringConvertible>: CustomStringConvertible, Sequence {
     
     // MARK: - Properties
     
@@ -174,10 +174,8 @@ public func ==<Element: Equatable>(lhs: MCTQueue<Element>, rhs: MCTQueue<Element
         return false
     }
     
-    for index in 0 ..< lhs.size {
-        if lhs.items[index] != rhs.items[index] {
-            return false
-        }
+    for index in 0 ..< lhs.size where lhs.items[index] != rhs.items[index] {
+        return false
     }
     
     return true

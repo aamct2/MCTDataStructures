@@ -173,10 +173,8 @@ public func ==<Element: Equatable>(lhs: MCTStack<Element>, rhs: MCTStack<Element
         return false
     }
     
-    for index in 0 ..< lhs.size {
-        if lhs.items[index] != rhs.items[index] {
-            return false
-        }
+    for index in 0 ..< lhs.size where lhs.items[index] != rhs.items[index] {
+        return false
     }
     
     return true

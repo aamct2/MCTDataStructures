@@ -26,7 +26,7 @@
 import Foundation
 
 /// Generic implementation of a priority queue collection.
-public struct MCTPriorityQueue<Element : CustomStringConvertible> : CustomStringConvertible, Sequence {
+public struct MCTPriorityQueue<Element: CustomStringConvertible>: CustomStringConvertible, Sequence {
 
     // MARK: - Properties
     
@@ -173,10 +173,8 @@ public func ==<Element: Equatable>(lhs: MCTPriorityQueue<Element>, rhs: MCTPrior
         return false
     }
     
-    for index in 0 ..< lhs.size {
-        if lhs.items[index] != rhs.items[index] {
-            return false
-        }
+    for index in 0 ..< lhs.size where lhs.items[index] != rhs.items[index] {
+        return false
     }
     
     return true
